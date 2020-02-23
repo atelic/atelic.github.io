@@ -26,20 +26,24 @@ workbox.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-c52aad792dd633007686.js"
+    "url": "webpack-runtime-e50280f29024f54df825.js"
   },
   {
     "url": "commons-487d38bec414ba5177c2.js"
   },
   {
-    "url": "app-254b72d9e1a4774d1232.js"
+    "url": "app-b26b229970a72138e973.js"
   },
   {
     "url": "component---node-modules-gatsby-plugin-offline-app-shell-js-e20d661cfc9de7014e2a.js"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "bfbce6466339e51a035a1089953006bf"
+    "revision": "f5b2ba6955eeb4bdf0786d0b5c57df9a"
+  },
+  {
+    "url": "page-data/offline-plugin-app-shell-fallback/page-data.json",
+    "revision": "c355c8040c47a63bfb3360e4b7cb6553"
   },
   {
     "url": "manifest.json",
@@ -47,7 +51,7 @@ self.__precacheManifest = [
   },
   {
     "url": "manifest.webmanifest",
-    "revision": "bce740dcadae25e76cfc21ca0b04e56a"
+    "revision": "8b77c6b8e88acdcdb59e82c879376ff9"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
@@ -66,12 +70,12 @@ const { NavigationRoute } = workbox.routing
 
 const navigationRoute = new NavigationRoute(async ({ event }) => {
   let { pathname } = new URL(event.request.url)
-  pathname = pathname.replace(new RegExp(`^`), ``)
+  pathname = pathname.replace(new RegExp(`^/resume`), ``)
 
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/app-254b72d9e1a4774d1232.js`))) {
+  if (!resources || !(await caches.match(`/resume/app-b26b229970a72138e973.js`))) {
     return await fetch(event.request)
   }
 
@@ -84,7 +88,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
     }
   }
 
-  const offlineShell = `/offline-plugin-app-shell-fallback/index.html`
+  const offlineShell = `/resume/offline-plugin-app-shell-fallback/index.html`
   return await caches.match(offlineShell)
 })
 
